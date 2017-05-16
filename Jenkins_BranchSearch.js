@@ -39,6 +39,8 @@ function JenkinsBranchSearch()
   branchSearchInput = document.getElementById('branch');
   branchSearchInput.focus();
   cstmSearchInput = document.getElementById('cstm');
+
+  AddEventListeners();
 }
 
 function Search()
@@ -98,4 +100,20 @@ function AddSpacing(spaces)
         spacing += "&nbsp;";
 
     return spacing;
+}
+
+function AddEventListeners()
+{
+  branchSearchInput.addEventListener('keyup', BranchSearchEventListener);
+  cstmSearchInput.addEventListener('keyup', BranchSearchEventListener);
+}
+
+function BranchSearchEventListener(key)
+{
+  switch(key.code)
+  {
+    case "Enter":
+      Search();
+      break;
+  }
 }
