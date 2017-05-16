@@ -54,6 +54,7 @@ function BoldWords_EventHandler()
     }
 }
 
+//TODO: Try to add functionality for alt + [ key ]
 function AddKeyUpListeners(key)
 {
     var resultModal = document.getElementsByClassName('ui-draggable')[0];
