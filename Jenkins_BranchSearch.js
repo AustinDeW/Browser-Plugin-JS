@@ -2,27 +2,14 @@ var branchSearchInput;
 var cstmSearchInput;
 var foundSearches = [];
 
-//TODO: Maybe need to make logic better
-function SearchForBranch(select, searchItem)
+JenkinsMain();
+
+function JenkinsMain()
 {
-    var count = 0;
-    var branches = select.childNodes;
-    var firstIndex = 0;
-    for(var i = 0; i < branches.length; i++)
-    {
-        if(branches[i].text.toLowerCase().includes(searchItem.toLowerCase()))
-        {
-            branches[i].style.backgroundColor = 'orange';
-            foundSearches[count++] = branches[i];
-            firstIndex = i;
-        }
-    }
-
-    if(count === 1)
-        select.selectedIndex = firstIndex;
-
-    document.getElementById('results')
-            .innerHTML = "Search Found: <span style='color:red; font-weight: bold;'>" + AddSpacing(6) + count + " result(s)</span>";
+  if(window.location.href.indexOf('build?') > -1)
+  {
+    JenkinsBranchSearch();
+  }
 }
 
 function JenkinsBranchSearch()
@@ -73,6 +60,29 @@ function Search()
         cstmBranch.selectedIndex = 3;
 }
 
+//TODO: Maybe need to make logic better
+function SearchForBranch(select, searchItem)
+{
+    var count = 0;
+    var branches = select.childNodes;
+    var firstIndex = 0;
+    for(var i = 0; i < branches.length; i++)
+    {
+        if(branches[i].text.toLowerCase().includes(searchItem.toLowerCase()))
+        {
+            branches[i].style.backgroundColor = 'orange';
+            foundSearches[count++] = branches[i];
+            firstIndex = i;
+        }
+    }
+
+    if(count === 1)
+        select.selectedIndex = firstIndex;
+
+    document.getElementById('results')
+            .innerHTML = "Search Found: <span style='color:red; font-weight: bold;'>" + AddSpacing(6) + count + " result(s)</span>";
+}
+
 function Clear()
 {
   branchSearchInput.value = '';
@@ -89,13 +99,3 @@ function AddSpacing(spaces)
 
     return spacing;
 }
-
-function JenkinsMain()
-{
-  if(window.location.href.indexOf('build?') > -1)
-  {
-    JenkinsBranchSearch();
-  }
-}
-
-JenkinsMain();

@@ -1,6 +1,19 @@
 var addStep = document.getElementsByClassName('addStep')[0];
 var textAreas;
 
+TestRailMain();
+
+function TestRailMain()
+{
+    if(window.location.href.indexOf('cases/add') > -1 ||
+       window.location.href.indexOf('cases/edit') > -1)
+    {
+        AddStep();
+    }
+
+    document.addEventListener('keyup',AddKeyUpListeners);
+}
+
 function AddStep()
 {
     Reset(0);
@@ -74,16 +87,3 @@ function AddKeyUpListeners(key)
         }
     }
 }
-
-function TestRailMain()
-{
-    if(window.location.href.indexOf('cases/add') > -1 ||
-       window.location.href.indexOf('cases/edit') > -1)
-    {
-        AddStep();
-    }
-
-    document.addEventListener('keyup',AddKeyUpListeners);
-}
-
-TestRailMain();
