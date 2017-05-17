@@ -53,6 +53,7 @@ function BoldWords()
     }
 }
 
+//TODO: I could try to make this work for more cases
 function BoldWords_EventHandler()
 {
     var values = [ 'given ', 'when ', 'then ', 'and ', ];
@@ -70,20 +71,21 @@ function BoldWords_EventHandler()
 //TODO: Try to add functionality for alt + [ key ]
 function AddKeyUpListeners(key)
 {
-    var resultModal = document.getElementsByClassName('ui-draggable')[0];
-    if(resultModal !== null)
-    {
-        switch(key.code)
-        {
-            case 'AltLeft':
-                document.getElementById('addResultComment').value = (
-                          "Event: "
-                        + "\nBrowsers: "
-                        + "\nAccount: "
-                        + "\nEvent: "
-                        + "\n\nResult: I was able to successfully verify that"
-                    );
-                break;
-        }
-    }
+  switch(key.code)
+  {
+      case 'AltLeft':
+
+          var resultComment = document.getElementById('addResultComment');
+          if(resultComment !== null)
+          {
+            resultComment.value = (
+                      "Event: "
+                    + "\nBrowsers: "
+                    + "\nAccount: "
+                    + "\nEvent: "
+                    + "\n\nResult: I was able to successfully verify that"
+                );
+          }
+          break;
+  }
 }
