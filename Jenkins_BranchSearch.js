@@ -20,7 +20,7 @@ function JenkinsBranchSearch()
                       +    "#srchDiv, #results { margin-left: 20%; }"
                       +    ".label { display: inline-block; }"
                       +    "#search { margin-left: 8%; }"
-                      +    "#clear { margin-left: 4%; }"
+                      +    "#clear { margin-left: .5%; }"
                       +  "</style>"
                       +  "<div id='srchDiv'>"
                       +    "<p class='label'>Branch Search: " + AddSpacing(4) + "</p>"
@@ -29,8 +29,16 @@ function JenkinsBranchSearch()
                       +    "<p class='label'>Custom Search: " + AddSpacing(3) + "</p>"
                       +    "<input id='cstm' type='text' />"
                       +    "<br /> <br />"
-                      +    "<button id='search' onclick='Search()'>Search</button>"
-                      +    "<button id='clear' onclick='Clear()'>Clear</button>"
+                      +    "<span id='search' class='yui-button yui-submit-button submit-button primary'>"
+                      +     "<span class='first-child'>"
+                      +       "<button type='button' id='searchBtn' onclick='Search()'>Search</button>"
+                      +     "</span>"
+                      +    "</span>"
+                      +    "<span id='clear' class='yui-button yui-submit-button submit-button primary'>"
+                      +     "<span class='first-child'>"
+                      +       "<button type='button' id='clearBtn' onclick='Clear()'>Clear</button>"
+                      +     "</span>"
+                      +    "</span>"
                       +  "</div>"
                       +  "<br />"
                       +  "<p id='results'>Search Found: </p>";
@@ -113,7 +121,7 @@ function BranchSearchEventListener(key)
   switch(key.code)
   {
     case "Enter":
-      Search();
+      document.getElementById('searchBtn').click();
       break;
   }
 }
