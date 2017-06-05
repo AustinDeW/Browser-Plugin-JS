@@ -153,6 +153,7 @@ function AddEventListeners()
 {
   branchSearchInput.addEventListener('keyup', BranchSearchEventListener);
   cstmSearchInput.addEventListener('keyup', BranchSearchEventListener);
+  window.addEventListener('keyup', BranchSearchEventListener);
 }
 
 function BranchSearchEventListener(key)
@@ -161,6 +162,9 @@ function BranchSearchEventListener(key)
   {
     case "Enter":
       document.getElementById('searchBtn').click();
+      break;
+    case "Escape":
+      document.getElementById('clearBtn').click();
       break;
   }
 }
