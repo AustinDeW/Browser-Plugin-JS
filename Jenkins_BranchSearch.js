@@ -129,6 +129,7 @@ function Clear()
   document.getElementById('resultsCount').innerHTML = "Search Found: ";
   DisplayElement('foundBranch', 'none');
   DisplayElement('foundCustom', 'none');
+  branchSearchInput.focus();
 }
 
 // Returns a string of 'spaces'
