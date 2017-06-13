@@ -1,4 +1,23 @@
-AddTime();
+Main();
+
+function Main()
+{
+  AddTotalTimeElement();
+}
+
+function AddTotalTimeElement()
+{
+  var totalTime = document.createElement('div');
+  totalTime.setAttribute('id', 'totalTimeWrapper')
+  totalTime.innerHTML = "<style>"
+                      +   "#totalTimeWrapper { display: inline-block; font-family: 'YouTube Noto',Roboto,arial,sans-serif; }"
+                      + "</style>"
+                      + "<div id='totalTime'>"
+                      +   "<p>" + AddSpacing(2) + "Total Time: " + AddSpacing(2) + AddTime() + " minutes</p>"
+                      + "</div>";
+
+  document.getElementsByClassName('playlist-actions')[0].appendChild(totalTime);
+}
 
 function AddTime()
 {
@@ -17,5 +36,15 @@ function AddTime()
       totalSec += parseInt(sec);
   }
 
-  console.log(totalMin + (Math.round(totalSec / 60)) + " minutes");
+  return (totalMin + (Math.round(totalSec / 60)));
+}
+
+function AddSpacing(spaces)
+{
+    var spacing = "";
+
+    for(var i = 0; i < spaces; i++)
+        spacing += "&nbsp;";
+
+    return spacing;
 }
