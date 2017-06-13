@@ -2,7 +2,10 @@ Main();
 
 function Main()
 {
-  AddTotalTimeElement();
+  if(window.location.href.indexOf('playlist?list=') > -1)
+  {
+    AddTotalTimeElement();
+  }
 }
 
 function AddTotalTimeElement()
