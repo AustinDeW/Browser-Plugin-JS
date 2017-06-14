@@ -1,15 +1,11 @@
-var branchSearchInput;
-var cstmSearchInput;
-var foundBranches;
-var branch;
-var cstmBranch;
-var foundCustoms;
+var branchSearchInput, cstmSearchInput, foundBranches, branch, cstmBranch, foundCustoms;
 var foundSearches = [];
 
 JenkinsMain();
 
 function JenkinsMain()
 {
+  // only will run on the build with parameters page of jenkins
   if(window.location.href.indexOf('build?') > -1)
   {
     JenkinsBranchSearch();
@@ -109,6 +105,7 @@ function SearchForBranch(select, searchItem, foundList)
         }
     }
 
+    // if there is only one result, it will auto select it
     if(count === 1)
         select.selectedIndex = firstIndex;
 
