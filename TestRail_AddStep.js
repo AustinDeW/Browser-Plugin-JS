@@ -32,9 +32,10 @@ function SwitchTemplate()
   {
       setTimeout(function()
       {
-          document.getElementsByTagName('textarea')[0].innerHTML = given;
-          document.getElementsByTagName('textarea')[1].innerHTML = when;
-          document.getElementsByTagName('textarea')[2].innerHTML = then;
+          document.getElementsByTagName('textarea')[0].innerHTML = given === "" ? "..." : given;
+          document.getElementsByTagName('textarea')[1].innerHTML = when === "" ? "..." : when;
+          document.getElementsByTagName('textarea')[2].innerHTML = then === "" ? "..." : then;
+
       }, 2000);
   });
 }
