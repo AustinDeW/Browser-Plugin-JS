@@ -32,9 +32,13 @@ function SwitchTemplate()
   {
       setTimeout(function()
       {
-          document.getElementsByTagName('textarea')[0].innerHTML = given === "" ? "..." : given;
-          document.getElementsByTagName('textarea')[1].innerHTML = when === "" ? "..." : when;
-          document.getElementsByTagName('textarea')[2].innerHTML = then === "" ? "..." : then;
+          document.getElementsByTagName('textarea')[0].innerHTML = given === "" ? "**GIVEN**" : given;
+          document.getElementsByTagName('textarea')[1].innerHTML = when === "" ? "**WHEN**" : when;
+          document.getElementsByTagName('textarea')[2].innerHTML = then === "" ? "**THEN**" : then;
+
+          var automationField = document.getElementById('custom_automated');
+          if(automationField.selectedIndex === 0)
+            automationField.selectedIndex = 1;
 
       }, 2000);
   });
@@ -45,9 +49,7 @@ function Reset(startIndex)
     textAreas = document.getElementsByTagName('textarea');
 
     for(var i = startIndex; i < textAreas.length; i++)
-    {
         textAreas[i].addEventListener('keyup', Reset_EventHandler);
-    }
 }
 
 function Reset_EventHandler(key)
