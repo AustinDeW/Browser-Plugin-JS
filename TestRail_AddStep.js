@@ -9,7 +9,15 @@ function TestRailMain()
        window.location.href.indexOf('cases/edit') > -1)
     {
         AddStep();
-        SwitchTemplate();
+        document.addEventListener('keyup', function(key)
+        {
+          switch(key.code)
+          {
+            case 'AltRight':
+              SwitchTemplate();
+            break;
+          }
+        });
     }
 
     document.addEventListener('keyup',AddKeyUpListeners);
@@ -27,8 +35,8 @@ function SwitchTemplate()
   var when = document.getElementsByTagName('textarea')[1].innerHTML;
   var then = document.getElementsByTagName('textarea')[2].innerHTML;
 
-  var selectList = document.getElementById('template_id');
-  selectList.addEventListener('change', function()
+  var templateField = document.getElementById('template_id');
+  templateField.addEventListener('change', function()
   {
       setTimeout(function()
       {
@@ -42,6 +50,21 @@ function SwitchTemplate()
 
       }, 2000);
   });
+
+  // Fires event if the template is wrong
+  if(templateField.selectedIndex === 1)
+  {
+    templateField.selectedIndex = 0;
+
+    if ("createEvent" in document)
+    {
+        var evt = document.createEvent("HTMLEvents");
+        evt.initEvent("change", false, true);
+        templateField.dispatchEvent(evt);
+    }
+    else
+        templateField.fireEvent("onchange");
+  }
 }
 
 function Reset(startIndex)
