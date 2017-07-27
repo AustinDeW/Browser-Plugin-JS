@@ -17,19 +17,22 @@ function JenkinsBranchSearch()
   var p = document.evaluate('//*[@id="main-panel-content"]/p', document.body, null, XPathResult.ANY_TYPE, null).iterateNext();
   var searchDiv = document.createElement('div');
   searchDiv.innerHTML =  "<style>"
-                      +    "#srchDiv, #resultsCount { margin-left: 20%; }"
-                      +    ".label { display: inline-block; }"
+                      +    "#srchDiv { margin-left: 20%; }"
+                      +    ".label, #resultsCountCust, #resultsCountBrnch { display: inline-block; }"
                       +    "#search { margin-left: 8%; }"
                       +    "#clear { margin-left: .5%; }"
                       +    "#resultsDiv { margin-left: .5%; }"
                       +    ".foundBranch, .foundCustom { display: none; }"
+                      +    "#resultsCountCust, #resultsCountBrnch { margin-left: 2%; }"
                       +  "</style>"
                       +  "<div id='srchDiv'>"
                       +    "<p class='label'>Branch Search: " + AddSpacing(4) + "</p>"
                       +    "<input id='branch' type='text' />"
+                      +    "<p id='resultsCountBrnch'></p>"
                       +    "<br />"
                       +    "<p class='label'>Custom Search: " + AddSpacing(3) + "</p>"
                       +    "<input id='cstm' type='text' />"
+                      +    "<p id='resultsCountCust'></p>"
                       +    "<br /> <br />"
                       +    "<span id='search' class='yui-button yui-submit-button submit-button primary'>"
                       +     "<span class='first-child'>"
@@ -43,7 +46,7 @@ function JenkinsBranchSearch()
                       +    "</span>"
                       +  "</div>"
                       +  "<br />"
-                      +  "<p id='resultsCount'>Search Found: </p>"
+                      //+  "<p id='resultsCount'>Search Found: </p>"
                       +  "<div id='resultsDiv'>"
                       +    "<p class='label foundBranch'>Found Branches: " + AddSpacing(1) + "</p>"
                       +    "<select class='foundBranch' id='foundBranches' onchange='BranchList_Change(this)'></select>"
@@ -73,21 +76,21 @@ function Search()
         foundSearches[i].style.backgroundColor = 'white';
 
     if(branchSearchInput.value.length > 0)
-      SearchForBranch(branch, branchSearchInput.value, foundBranches);
+      SearchForBranch(branch, branchSearchInput.value, foundBranches, 2);
 
     if(cstmSearchInput.value.length > 0)
-      SearchForBranch(cstmBranch, cstmSearchInput.value, foundCustoms);
+      SearchForBranch(cstmBranch, cstmSearchInput.value, foundCustoms, 3);
     else
         cstmBranch.selectedIndex = 3;
 
-    if(foundBranches.length > 0)
+    if(foundBranches.length > 1)
       DisplayElement('foundBranch', 'inline-block');
-    if(foundCustoms.length > 0)
+    if(foundCustoms.length > 1)
       DisplayElement('foundCustom', 'inline-block');
 }
 
 //TODO: Maybe need to make logic better
-function SearchForBranch(select, searchItem, foundList)
+function SearchForBranch(select, searchItem, foundList, id)
 {
     var count = 0;
     var branches = select.childNodes;
@@ -109,8 +112,8 @@ function SearchForBranch(select, searchItem, foundList)
     if(count === 1)
         select.selectedIndex = firstIndex;
 
-    document.getElementById('resultsCount')
-            .innerHTML = "Search Found: <span style='color:red; font-weight: bold;'>" + AddSpacing(6) + count + " result(s)</span>";
+    var result = id == 3 ? document.getElementById('resultsCountCust') : document.getElementById('resultsCountBrnch');
+    result.innerHTML = "<span style='color:red; font-weight: bold;'>" + count + "</span> <b>result(s)</b>";
 
     foundList.innerHTML = foundOptions;
 }
@@ -123,7 +126,8 @@ function Clear()
   foundCustoms.innerHTML = '';
   branch.selectedIndex = 0;
   cstmBranch.selectedIndex = 3;
-  document.getElementById('resultsCount').innerHTML = "Search Found: ";
+  document.getElementById('resultsCountBrnch').innerHTML = "";
+  document.getElementById('resultsCountCust').innerHTML = "";
   DisplayElement('foundBranch', 'none');
   DisplayElement('foundCustom', 'none');
   branchSearchInput.focus();
