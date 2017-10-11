@@ -76,21 +76,22 @@ function Search()
         foundSearches[i].style.backgroundColor = 'white';
 
     if(branchSearchInput.value.length > 0)
-      SearchForBranch(branch, branchSearchInput.value, foundBranches, 2);
+      SearchForBranch(branch, branchSearchInput.value, foundBranches, "resultsCountBrnch");
 
     if(cstmSearchInput.value.length > 0)
-      SearchForBranch(cstmBranch, cstmSearchInput.value, foundCustoms, 3);
+      SearchForBranch(cstmBranch, cstmSearchInput.value, foundCustoms, "resultsCountCust");
     else
         cstmBranch.selectedIndex = 3;
 
-    if(foundBranches.length > 1)
+    if(foundBranches.length > 2)
       DisplayElement('foundBranch', 'inline-block');
-    if(foundCustoms.length > 1)
+    if(foundCustoms.length > 2)
       DisplayElement('foundCustom', 'inline-block');
 }
 
 //TODO: Maybe need to make logic better
-function SearchForBranch(select, searchItem, foundList, id)
+// creates a secondary list of branches due to suspicions that jenkins builds branches by index of their list
+function SearchForBranch(select, searchItem, foundList, resultId)
 {
     var count = 0;
     var branches = select.childNodes;
@@ -112,8 +113,7 @@ function SearchForBranch(select, searchItem, foundList, id)
     if(count === 1)
         select.selectedIndex = firstIndex;
 
-    var result = id == 3 ? document.getElementById('resultsCountCust') : document.getElementById('resultsCountBrnch');
-    result.innerHTML = "<span style='color:red; font-weight: bold;'>" + count + "</span> <b>result(s)</b>";
+    document.getElementById(resultId).innerHTML = "<span style='color:red; font-weight: bold;'>" + count + "</span> <b>result(s)</b>";
 
     foundList.innerHTML = foundOptions;
 }
