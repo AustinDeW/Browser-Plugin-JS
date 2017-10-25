@@ -4,18 +4,23 @@ Main();
 
 function Main() {
     if(window.location.href.indexOf('cases/add') > -1 ||
-       window.location.href.indexOf('cases/edit') > -1) {
+       window.location.href.indexOf('cases/edit') > -1 ||
+       window.location.href.indexOf('view') > -1) {
            document.addEventListener('keyup', function(key) {
-              switch(key.code) {
-                  case 'AltRight':
-                      ApproveTC();
-                      break;
-              }
+                if(key.keyCode === 53 && key.altKey) // alt + 5
+                    ApproveTC('5');
+                else if(key.keyCode === 51 && key.altKey) // alt + 3
+                    ApproveTC('3');
+                else if(key.keyCode === 49 && key.altKey) // alt + 1
+                    ApproveTC('1');
+                else if(key.keyCode === 82 && key.altKey) // alt + r
+                    AddResults();
            });
        }
 }
 
-function ApproveTC() {
+function ApproveTC(score) {
+  //document.getElementsByTagName('a')[GetEditButton()].click();
   document.getElementById('title').value = document.getElementById('title').value.replace('#', '');
   document.getElementById('custom_review_pass').value = GetDateString();
 
@@ -28,6 +33,7 @@ function ApproveTC() {
       }
   }
   document.getElementById('custom_revby').selectedIndex = reviewByIndex;
+  document.getElementById('custom_review_score').value = score;
   document.getElementById('accept').click();
 }
 
@@ -41,8 +47,24 @@ function GetDateString() {
     return month + '/' + day + '/' + year;
 }
 
+function GetEditButton() {
+  var links = document.getElementsByTagName('a');
+  for(var i = 0; i < links.length; i++) {
+    if(links[i].getAttribute('href').includes('/cases/edit/')) {
+        return i;
+    }
+  }
 
+  return 0;
+}
 
+function AddResults() {
+  document.getElementById('addResultComment').value = "Environment: \n"
+                                                        + "Browsers: \n"
+                                                        + "Account: \n"
+                                                        + "Event: \n\n"
+                                                        + "Results: ";
+}
 
 // var addStep = document.getElementsByClassName('addStep')[0];
 // var textAreas;
